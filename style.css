@@ -1,0 +1,114 @@
+body {
+  font-family: "Noto Serif JP", serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* ==========================
+   レイアウト調整
+   ========================== */
+.editor {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.input-area {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 250px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  padding: 8px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  background-color: #0078d7;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* ==========================
+   プレビューエリア
+   ========================== */
+.preview-area {
+  width: 50%;
+  border: 2px solid #000;
+  background-color: white;
+  padding: 15px;
+  min-height: 300px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin: 0;
+  line-height: 2em;
+}
+
+/* ==========================
+   文字スタイル調整
+   ========================== */
+.char-container {
+  display: inline-block;
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.char-container:hover {
+  transform: scale(1.1);
+}
+
+.char-container .char {
+  font-size: 1.2em;
+}
+
+/* 返り点（左下配置） */
+.char-container .kaeriten {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-30%, 75%);
+  font-size: 0.8em;
+  writing-mode: horizontal-tb;
+}
+
+/* 送り仮名（右下配置） */
+.char-container .okurigana {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(30%, 75%);
+  font-size: 0.8em;
+  writing-mode: horizontal-tb;
+}

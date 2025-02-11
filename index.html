@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>訓読文エディタβ</title>
     <style>
-      body {
-        font-family: "serif";
-      }
-
       .editor {
         display: flex;
         gap: 20px;
@@ -69,10 +65,11 @@
         line-height: 2em;
       }
     </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1>訓読文エディタ - 縦書き＋斜め下注釈 改良版</h1>
+    <h1>訓読文エディタβ</h1>
     <div class="editor">
       <div class="input-area">
         <textarea
@@ -83,9 +80,6 @@
         ></textarea>
         <br />
         <button onclick="renderPreview()">プレビュー更新</button>
-        <br />
-        <button onclick="exportAsImage()">画像出力(未実装)</button>
-        <button onclick="exportAsPDF()">PDF出力(未実装)</button>
       </div>
       <div class="preview-area" id="preview"></div>
     </div>
@@ -151,14 +145,6 @@
 
         container.querySelector(".kaeriten").textContent = newKaeriten || "";
         container.querySelector(".okurigana").textContent = newOkurigana || "";
-      }
-
-      function exportAsImage() {
-        alert("画像出力機能は未実装です。");
-      }
-
-      function exportAsPDF() {
-        alert("PDF出力機能は未実装です。");
       }
     </script>
   </body>
