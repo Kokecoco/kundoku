@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>訓読文エディタβ</title>
+    <style>
+      body {
+        font-family: "serif";
+      }
+
+      .editor {
+        display: flex;
+        gap: 20px;
+      }
+
+      .input-area {
+        width: 40%;
+      }
+
+      .preview-area {
+        width: 50%;
+        border: 1px solid #000;
+        padding: 10px;
+        min-height: 300px;
+        /* 縦書き設定 */
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        position: relative;
+      }
+
+      /* 文字間隔を広くするために余白を増加 */
+      .char-container {
+        display: inline-block;
+        position: relative;
+        margin: 5px;
+        /* 漢字間の間隔を広く */
+        cursor: pointer;
+      }
+
+      .char-container .char {
+        font-size: 1em;
+      }
+
+      /* 返り点：漢字の左下に配置 */
+      .char-container .kaeriten {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        /* translateでX軸を-50%（中央寄りに）し、Y軸で100%下にずらす */
+        transform: translate(-30%, 75%);
+        font-size: 0.8em;
+        writing-mode: horizontal-tb;
+      }
+
+      /* 送り仮名：漢字の右下に配置 */
+      .char-container .okurigana {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        /* translateでX軸を50%（中央寄りに）し、Y軸で100%下にずらす */
+        transform: translate(30%, 75%);
+        font-size: 0.8em;
+        writing-mode: horizontal-tb;
+      }
+
+      p {
+        margin: 0;
+        line-height: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>訓読文エディタ - 縦書き＋斜め下注釈 改良版</h1>
+    <div class="editor">
+      <div class="input-area">
+        <textarea
+          id="kanbunInput"
+          rows="10"
+          cols="30"
+          placeholder="ここに漢文を入力"
+        ></textarea>
+        <br />
+        <button onclick="renderPreview()">プレビュー更新</button>
+        <br />
+        <button onclick="exportAsImage()">画像出力(未実装)</button>
+        <button onclick="exportAsPDF()">PDF出力(未実装)</button>
+      </div>
+      <div class="preview-area" id="preview"></div>
+    </div>
+    <script>
+      // プレビュー生成関数
+      function renderPreview() {
+        const inputText = document.getElementById("kanbunInput").value;
+        const preview = document.getElementById("preview");
+        preview.innerHTML = "";
+
+        const lines = inputText.split("\n");
+        lines.forEach((line) => {
+          const p = document.createElement("p");
+          for (let i = 0; i < line.length; i++) {
+            const container = document.createElement("span");
+            container.className = "char-container";
+
+            // メインの漢字表示用
+            const charSpan = document.createElement("span");
+            charSpan.className = "char";
+            charSpan.textContent = line[i];
+            container.appendChild(charSpan);
+
+            // 返り点用スパン（初期は空）
+            const kaeritenSpan = document.createElement("span");
+            kaeritenSpan.className = "kaeriten";
+            kaeritenSpan.textContent = "";
+            container.appendChild(kaeritenSpan);
+
+            // 送り仮名用スパン（初期は空）
+            const okuriganaSpan = document.createElement("span");
+            okuriganaSpan.className = "okurigana";
+            okuriganaSpan.textContent = "";
+            container.appendChild(okuriganaSpan);
+
+            // クリックで注釈編集
+            container.addEventListener("click", function (e) {
+              annotateCharacter(container);
+              e.stopPropagation();
+            });
+
+            p.appendChild(container);
+          }
+          preview.appendChild(p);
+        });
+      }
+
+      // 注釈編集関数
+      function annotateCharacter(container) {
+        const currentKaeriten =
+          container.querySelector(".kaeriten").textContent;
+        const currentOkurigana =
+          container.querySelector(".okurigana").textContent;
+
+        const newKaeriten = prompt(
+          "返り点を入力してください（現在: " + currentKaeriten + "）",
+          currentKaeriten,
+        );
+        const newOkurigana = prompt(
+          "送り仮名を入力してください（現在: " + currentOkurigana + "）",
+          currentOkurigana,
+        );
+
+        container.querySelector(".kaeriten").textContent = newKaeriten || "";
+        container.querySelector(".okurigana").textContent = newOkurigana || "";
+      }
+
+      function exportAsImage() {
+        alert("画像出力機能は未実装です。");
+      }
+
+      function exportAsPDF() {
+        alert("PDF出力機能は未実装です。");
+      }
+    </script>
+  </body>
+</html>
