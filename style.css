@@ -90,7 +90,7 @@ p {
 }
 
 .char-container .char {
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 /* 返り点（左下配置） */
@@ -98,9 +98,9 @@ p {
   position: absolute;
   bottom: 0;
   left: 0;
-  transform: translate(-30%, 75%);
-  font-size: 0.8em;
-  writing-mode: horizontal-tb;
+  transform: translate(-45%, 70%);
+  font-size: 1em;
+  writing-mode: vertical-rl;
 }
 
 /* 送り仮名（右下配置） */
@@ -108,7 +108,7 @@ p {
   position: absolute;
   bottom: 0;
   right: 0;
-  transform: translate(30%, 75%);
-  font-size: 0.8em;
-  writing-mode: horizontal-tb;
+  transform: translate(45%, 70%);
+  font-size: 1em;
+  writing-mode: vertical-rl;
 }
